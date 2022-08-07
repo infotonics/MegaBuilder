@@ -19,7 +19,7 @@ The code is created in a very easy way
 <h1> FUTURE UPDATES</h1>
 
 <ol>
-<li>Generation of CRUD code inside their specific folders</li>
+<li>Generation of CRUD code inside their specific folders-- (DONE 07-08-2022)</li>
 <li>CI based builder will be built</li>
 <li>Some Themes Will Be Added</li>
 <li>CRUD builder fields and data type will be added</li>
