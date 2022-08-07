@@ -76,11 +76,16 @@ while($row = mysqli_fetch_array($result))
 		echo '================'.$row[0].' Ends Here================<br><br><br>';
     }
 function copy_folder($src, $dst,$name,$valid,$params,$tble,$tbody,$addform,$editform) { 
-   
+   $dst2='S:/VertrigoServ/www/api_builder/application/views/';
+   $dst3='S:/VertrigoServ/www/api_builder/application/controllers/';
+   $dst4='S:/VertrigoServ/www/api_builder/application/models/';
     // open the source directory
     $dir = opendir($src); 
     // Make the destination directory if not exist
 	$dst=$dst.$name;
+	$dst2=$dst2.$name;
+	// $dst3=$dst3.$name;
+	// $dst4=$dst4.$name;
     @mkdir($dst); 
     // Loop through the files in source directory
     foreach (scandir($src) as $file) { 
@@ -91,14 +96,16 @@ function copy_folder($src, $dst,$name,$valid,$params,$tble,$tbody,$addform,$edit
    
                 // Recursively calling custom copy function
                 // for sub directory 
-                copy_folder($src . '/' . $file, $dst . '/',$name,$valid,$params,$tble,$tbody,$addform,$editform); 
+                copy_folder($src . '/' . $file, $dst2 . '/',$name,$valid,$params,$tble,$tbody,$addform,$editform); 
    
             } 
              else { 
 				if($file=='add.php' || $file=='edit.php' || $file=='index.php'){
-					copy($src . '/' . $file, $dst . '/' . $file);
+					copy($src . '/' . $file, $dst2 . '/' . $file);
 					/// add my code 
-					$path=$dst . '/' . $file;
+					echo $src . '/' . $file;echo '<br>';
+					echo $dst2 . '/' . $file;echo '<br>';
+					$path=$dst2 . '/' . $file;
 					$str = file_get_contents($path);
 					$str = str_replace('%%tblname%%', $name, $str);
 					$str = str_replace('%%thth%%', $tble, $str);
@@ -112,9 +119,9 @@ function copy_folder($src, $dst,$name,$valid,$params,$tble,$tbody,$addform,$edit
 					// Test if string contains the word 
 					if(strpos($file, $word) !== false){
 						$Uname=ucfirst($name);
-						copy($src . '/' . $file, $dst . '/' . $Uname.'_model.php');
+						copy($src . '/' . $file, $dst4 . '/' . $Uname.'_model.php');
 						/// add my code 
-						$path=$dst . '/' . $Uname.'_model.php';
+						$path=$dst4 . '/' . $Uname.'_model.php';
 						$str = file_get_contents($path);
 						$str = str_replace('%%tblname%%_model', $Uname.'_model', $str);
 						$str = str_replace('%%tblname%%', $name, $str);
@@ -122,9 +129,9 @@ function copy_folder($src, $dst,$name,$valid,$params,$tble,$tbody,$addform,$edit
 						/// add my code ends
 					} else{
 						$Uname=ucfirst($name);
-						copy($src . '/' . $file, $dst . '/' . $Uname.'.php');
+						copy($src . '/' . $file, $dst3 . '/' . $Uname.'.php');
 						/// add my code 
-						$path=$dst . '/' . $Uname.'.php';
+						$path=$dst3 . '/' . $Uname.'.php';
 						$str = file_get_contents($path);
 						$str = str_replace('class %%tblname%%', 'class '.$Uname, $str);
 						$str = str_replace('%%tblname%%_model', $Uname.'_model', $str);
